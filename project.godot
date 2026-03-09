@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Argentum Online 2.0"
+config/name="ProyectoBruma"
 run/main_scene="res://src/world/TownFixed.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 

@@ -1,7 +1,7 @@
-# Argentum Online 2.0 - Memory Log
+# ProyectoBruma - Memory Log
 
 ## Project Overview
-A 3D Isometric RPG inspired by Argentum Online, Diablo, and Ragnarok Online, built in Godot 4. Now focusing on a robust **Solo/Co-op RPG** foundation with deep itemization and modular AI.
+A 3D Isometric RPG built in Godot 4, inspired by Argentum Online, Diablo, and Ragnarok Online. Now focusing on a robust **Solo/Co-op RPG** foundation with deep itemization and modular AI.
 
 ## Core Architecture (Updated)
 - **Event-Driven UI/FX**: 
