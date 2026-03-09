@@ -1,0 +1,230 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/WelcomeUI.gd" id="1_welcome"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.1, 0.1, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.35, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.2, 0.4, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="WelcomeUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_welcome")
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="MainPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(800, 550)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -275.0
+offset_right = 400.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "WELCOME TO PROYECTOBRUMA"
+horizontal_alignment = 1
+
+[node name="WIPLabel" type="Label" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "[ WORK IN PROGRESS - v0.8.5 ]"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Features" type="ScrollContainer" parent="MainPanel/Margin/VBox/TabContainer"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/TabContainer/Features"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/Margin/VBox/TabContainer/Features/Margin"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Currently Functioning Systems:[/b]
+
+• [color=cyan]Isometric 3D World[/color]: Explore Town and Wild zones.
+• [color=cyan]Combat System[/color]: Dynamic targeting, Melee attacks, Blocking, and Spells.
+• [color=cyan]RPG Progression[/color]: Level up, Attributes (STR/INT/DEX), and XP system.
+• [color=cyan]Loot & Itemization[/color]: Randomized Affixes (Diablo-style), Rarity tiers, and Visual Pillars.
+• [color=cyan]Inventory & Equipment[/color]: Full gear management and stat comparison tooltips.
+• [color=cyan]NPC & AI[/color]: Interactive NPCs, Quest system, and Modular Enemy AI with threat tables.
+• [color=cyan]Persistence[/color]: Multiple Save Slots and Disk-based saving (user://).
+• [color=cyan]Allies[/color]: Cleric companion with healing and support AI.
+• [color=cyan]Minimap[/color]: Real-time orientation with world transition markers.
+• [color=cyan]Saving[/color]: Game auto-saves when changing zones (Portals)."
+fit_content = true
+
+[node name="Controls" type="ScrollContainer" parent="MainPanel/Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="MoveLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "WASD / Arrows"
+[node name="MoveDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Move Character"
+
+[node name="AttackLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "Left Click"
+[node name="AttackDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Primary Attack / Target Enemy"
+
+[node name="BlockLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "Right Click (Hold)"
+[node name="BlockDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Block Attacks (Reduces Damage)"
+
+[node name="DodgeLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "Space"
+[node name="DodgeDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Dodge / Dash"
+
+[node name="InteractLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "E"
+[node name="InteractDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Interact with NPCs / Items"
+
+[node name="Spell1Label" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "Q / 1"
+[node name="Spell1Desc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Select/Cast Bolt Spell"
+
+[node name="Spell2Label" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "R / 2"
+[node name="Spell2Desc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Select/Cast Lightning Spell"
+
+[node name="InventoryLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "I"
+[node name="InventoryDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Toggle Inventory"
+
+[node name="CharLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "C"
+[node name="CharDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Toggle Character Window"
+
+[node name="QuestLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "L"
+[node name="QuestDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Toggle Quest Log"
+
+[node name="HelpLabel" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+text = "H / F1"
+[node name="HelpDesc" type="Label" parent="MainPanel/Margin/VBox/TabContainer/Controls/Margin/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Toggle this Welcome/Help screen"
+
+[node name="CloseButton" type="Button" parent="MainPanel/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "START ADVENTURE"

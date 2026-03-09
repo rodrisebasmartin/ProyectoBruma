@@ -117,7 +117,7 @@ func _setup_interact_ray() -> void:
 		interact_ray.name = "InteractRay"
 		add_child(interact_ray)
 	
-	interact_ray.target_position = Vector3(0, 0, -1.5) # Front is -Z, shorter distance
+	interact_ray.target_position = Vector3(0, 0, -2.5) # Front is -Z, longer distance to hit NPC backs
 	interact_ray.hit_from_inside = true
 	interact_ray.position.y = 1.0
 	interact_ray.enabled = true
@@ -287,14 +287,14 @@ func _start_blocking() -> void:
 	is_parrying = true
 	parry_window_timer = PARRY_WINDOW
 	var tween = create_tween()
-	# Rotate model slightly to show guard pose
-	tween.tween_property($Model, "rotation:y", deg_to_rad(30), 0.1)
+	# Rotate model slightly to show guard pose (offset from PI base)
+	tween.tween_property($Model, "rotation:y", PI + deg_to_rad(30), 0.1)
 
 func _stop_blocking() -> void:
 	is_blocking = false
 	is_parrying = false
 	var tween = create_tween()
-	tween.tween_property($Model, "rotation:y", 0.0, 0.1)
+	tween.tween_property($Model, "rotation:y", PI, 0.1)
 
 func _start_casting() -> void:
 	var camera = get_viewport().get_camera_3d()

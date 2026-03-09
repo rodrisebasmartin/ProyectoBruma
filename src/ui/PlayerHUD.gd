@@ -15,6 +15,7 @@ extends CanvasLayer
 @onready var character_window = %CharacterWindow
 @onready var inventory_window = %InventoryWindow
 @onready var quest_log = $Control/QuestLogUI
+@onready var welcome_ui = get_node_or_null("Control/WelcomeUI")
 
 var player: CharacterBody3D
 var player_health: HealthComponent
@@ -54,6 +55,10 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("toggle_quest_log"):
 		if quest_log: quest_log.toggle()
+		
+	if event is InputEventKey and event.pressed and not event.is_echo():
+		if event.keycode == KEY_H or event.keycode == KEY_F1:
+			if welcome_ui: welcome_ui.toggle()
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(player):

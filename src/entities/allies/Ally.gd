@@ -96,6 +96,7 @@ func _setup_visuals() -> void:
 		var model = model_scene.instantiate()
 		model.name = "Model"
 		add_child(model)
+		model.rotation.y = PI # Face -Z (models are +Z forward)
 		model.position.y = 0.5 # Fix floating feet
 		var animation_player = model.get_node_or_null("AnimationPlayer")
 		
@@ -182,7 +183,7 @@ func _update_ai_logic(delta: float) -> void:
 	if dist > follow_distance:
 		var dir = global_position.direction_to(player_node.global_position)
 		velocity = dir * move_speed
-		var target_angle = atan2(dir.x, dir.z)
+		var target_angle = atan2(-dir.x, -dir.z)
 		rotation.y = lerp_angle(rotation.y, target_angle, 5.0 * delta)
 		move_and_slide()
 	else:
