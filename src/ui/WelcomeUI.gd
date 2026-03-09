@@ -3,8 +3,13 @@ extends Control
 @onready var close_button: Button = %CloseButton
 
 func _ready() -> void:
+	if GameManager and GameManager.has_shown_welcome:
+		visible = false
+		return
+		
 	# Show on start
 	visible = true
+	if GameManager: GameManager.has_shown_welcome = true
 	
 	close_button.pressed.connect(hide_welcome)
 	

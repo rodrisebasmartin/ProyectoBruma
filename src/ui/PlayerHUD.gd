@@ -24,6 +24,30 @@ var player_stats: StatsComponent
 func _ready() -> void:
 	add_to_group("hud")
 	_find_player()
+	EventBus.boss_spawned.connect(_on_boss_spawned)
+
+func _on_boss_spawned(boss_name: String) -> void:
+	var center = CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$Control.add_child(center)
+	
+	var label = Label.new()
+	label.text = "THE VEIL THINS...\n" + boss_name.to_upper() + " EMERGES FROM THE ABYSS!"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.set("theme_override_colors/font_color", Color.RED)
+	label.set("theme_override_colors/font_outline_color", Color.BLACK)
+	label.set("theme_override_constants/outline_size", 8)
+	label.set("theme_override_font_sizes/font_size", 32)
+	
+	center.add_child(label)
+	
+	var tween = create_tween()
+	label.modulate.a = 0
+	tween.tween_property(label, "modulate:a", 1.0, 1.0)
+	tween.tween_interval(3.0)
+	tween.tween_property(label, "modulate:a", 0.0, 1.0)
+	tween.tween_callback(center.queue_free)
 
 func _find_player() -> void:
 	var players = get_tree().get_nodes_in_group("player")

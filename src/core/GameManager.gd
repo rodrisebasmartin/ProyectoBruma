@@ -8,6 +8,7 @@ const DEFAULT_SLOT = 1
 
 var current_slot: int = DEFAULT_SLOT
 var player_data: Dictionary = {}
+var has_shown_welcome: bool = false
 
 func _ready() -> void:
 	reset_data()

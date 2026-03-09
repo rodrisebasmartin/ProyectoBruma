@@ -75,8 +75,13 @@ func spawn_loot(loot_list: Array, position: Vector3) -> void:
 		var dropped = dropped_item_scene.instantiate()
 		dropped.set("item_instance", inst) # Use the new instance
 		
-		get_tree().root.add_child(dropped)
-		dropped.global_position = position + Vector3(randf_range(-1, 1), 0.5, randf_range(-1, 1))
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			current_scene.add_child(dropped)
+			dropped.global_position = position + Vector3(randf_range(-1, 1), 0.5, randf_range(-1, 1))
+		else:
+			get_tree().root.add_child(dropped)
+			dropped.global_position = position + Vector3(randf_range(-1, 1), 0.5, randf_range(-1, 1))
 
 func _roll_rarity() -> ItemData.Rarity:
 	var roll = randf()

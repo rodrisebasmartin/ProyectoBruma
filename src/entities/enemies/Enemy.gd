@@ -316,6 +316,8 @@ func _on_died(attacker: Node3D) -> void:
 	if QuestManager:
 		QuestManager.track_kill(enemy_name)
 	
+	EventBus.enemy_died.emit(enemy_name, global_position)
+	
 	# Spawn Loot
 	if loot_table and LootManager:
 		var drops = loot_table.get_random_loot()

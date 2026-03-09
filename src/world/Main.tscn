@@ -8,8 +8,9 @@
 [ext_resource type="Script" path="res://src/entities/allies/Ally.gd" id="AllyScript"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_Wild"]
-sky_top_color = Color(0.15, 0.1, 0.1, 1)
-sky_horizon_color = Color(0.3, 0.2, 0.2, 1)
+sky_top_color = Color(0.25, 0.4, 0.6, 1)
+sky_horizon_color = Color(0.1, 0.1, 0.2, 1)
+ground_bottom_color = Color(0.1, 0.1, 0.1, 1)
 
 [sub_resource type="Sky" id="Sky_Wild"]
 sky_material = SubResource("ProceduralSkyMaterial_Wild")
@@ -19,11 +20,24 @@ background_mode = 2
 sky = SubResource("Sky_Wild")
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.15, 0.18, 0.25, 1)
+fog_density = 0.005
+fog_height = 0.8
+fog_height_density = 0.8
+volumetric_fog_enabled = false
+ambient_light_source = 2
+ambient_light_color = Color(0.2, 0.2, 0.25, 1)
+ambient_light_sky_contribution = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_Floor"]
 size = Vector3(200, 1, 200)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_WildFloor"]
+albedo_color = Color(0.12, 0.15, 0.12, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_Floor"]
+material = SubResource("StandardMaterial3D_WildFloor")
 size = Vector3(200, 1, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_Portal"]
@@ -65,6 +79,22 @@ script = ExtResource("4_spawner")
 
 [node name="EnemySpawner2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.5, -15)
+script = ExtResource("4_spawner")
+
+[node name="EnemySpawner3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.5, -10)
+script = ExtResource("4_spawner")
+
+[node name="EnemySpawner4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.5, 10)
+script = ExtResource("4_spawner")
+
+[node name="EnemySpawner5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 25)
+script = ExtResource("4_spawner")
+
+[node name="EnemySpawner6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, -30)
 script = ExtResource("4_spawner")
 
 [node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("target")]

@@ -9,6 +9,10 @@ signal damage_triggered(position: Vector3, amount: int, color: Color)
 signal heal_triggered(position: Vector3, amount: int)
 @warning_ignore("unused_signal")
 signal level_up_triggered(position: Vector3, new_level: int)
+@warning_ignore("unused_signal")
+signal enemy_died(enemy_name: String, position: Vector3)
+@warning_ignore("unused_signal")
+signal boss_spawned(boss_name: String)
 
 # World Events
 @warning_ignore("unused_signal")
