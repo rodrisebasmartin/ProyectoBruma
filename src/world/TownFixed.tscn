@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://src/world/Town.gd" id="1_town_script"]
+[ext_resource type="PackedScene" uid="uid://player_scene" path="res://src/entities/player/Player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://src/core/IsometricCamera.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://src/ui/PlayerHUD.tscn" id="4_hud"]
+[ext_resource type="PackedScene" path="res://src/entities/NPC.tscn" id="5_npc"]
+[ext_resource type="Script" path="res://src/core/InventoryTest.gd" id="6_test"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.2, 0.3, 0.4, 1)
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Floor"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Town"]
+albedo_color = Color(0.2, 0.4, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Floor"]
+material = SubResource("StandardMaterial3D_Town")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Portal"]
+size = Vector3(4, 2, 4)
+
+[node name="Town" type="Node3D"]
+script = ExtResource("1_town_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_Floor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_Floor")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
+
+[node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_camera")
+target = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+projection = 1
+size = 10.0
+
+[node name="PlayerHUD" parent="." instance=ExtResource("4_hud")]
+
+[node name="GateToWild" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 20)
+collision_layer = 32
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GateToWild"]
+shape = SubResource("BoxShape3D_Portal")
+
+[node name="Label3D" type="Label3D" parent="GateToWild"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+text = "TO THE WILD"
+font_size = 64
+
+[node name="GuardNPC" parent="." instance=ExtResource("5_npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+npc_name = "Guard"
+initial_dialogue = "Young adventurer! The forest is overrun by wolves."
+has_quest = true
+quest_id = "wolf_slayer_1"
+quest_title = "Wolf Slayer"
+quest_target_name = "Wolf"
+quest_required_amount = 5
+quest_reward_exp = 150
+quest_reward_gold = 75
+
+[node name="InventoryTest" type="Node" parent="."]
+script = ExtResource("6_test")
+

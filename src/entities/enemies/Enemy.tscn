@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/entities/enemies/Enemy.gd" id="1_enemy"]
+[ext_resource type="Resource" path="res://assets/loot_tables/wolf_loot_table.tres" id="2_loot"]
+[ext_resource type="PackedScene" path="res://assets/models/enemies/wolf/Wolf_with_Animations.fbx" id="3_wolf"]
+[ext_resource type="Script" path="res://src/core/components/HealthComponent.gd" id="3_health"]
+[ext_resource type="Script" path="res://src/core/components/StatsComponent.gd" id="4_stats"]
+
+[ext_resource type="Script" path="res://src/core/components/CharacterAnimator.gd" id="5_animator"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_Wolf"]
+radius = 0.4
+height = 1.2
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_enemy")
+loot_table = ExtResource("2_loot")
+
+[node name="Model" parent="." instance=ExtResource("3_wolf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CapsuleShape3D_Wolf")
+
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("3_health")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("4_stats")
+
+[node name="CharacterAnimator" type="Node" parent="." node_paths=PackedStringArray("animation_player", "model_root")]
+script = ExtResource("5_animator")
+animation_player = NodePath("../Model/AnimationPlayer")
+model_root = NodePath("../Model")

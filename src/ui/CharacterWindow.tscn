@@ -1,0 +1,263 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/CharacterWindow.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://src/ui/InventorySlotUI.tscn" id="2_slot"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="CharacterWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="HBox" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="StatsPanel" type="VBoxContainer" parent="Panel/HBox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ATTRIBUTES"
+horizontal_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="Panel/HBox/StatsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "Points: 0"
+horizontal_alignment = 1
+
+[node name="StrRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/StrRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "STR"
+
+[node name="StrValue" type="Label" parent="Panel/HBox/StatsPanel/StrRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="AddStr" type="Button" parent="Panel/HBox/StatsPanel/StrRow"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "+"
+
+[node name="IntRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/IntRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "INT"
+
+[node name="IntValue" type="Label" parent="Panel/HBox/StatsPanel/IntRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="AddInt" type="Button" parent="Panel/HBox/StatsPanel/IntRow"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "+"
+
+[node name="DexRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/DexRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "DEX"
+
+[node name="DexValue" type="Label" parent="Panel/HBox/StatsPanel/DexRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="AddDex" type="Button" parent="Panel/HBox/StatsPanel/DexRow"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "+"
+
+[node name="ConRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/ConRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "CON"
+
+[node name="ConValue" type="Label" parent="Panel/HBox/StatsPanel/ConRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="AddCon" type="Button" parent="Panel/HBox/StatsPanel/ConRow"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "+"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="DerivedTitle" type="Label" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "COMBAT STATS"
+horizontal_alignment = 1
+
+[node name="AtkRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/AtkRow"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Total Attack"
+
+[node name="AtkValue" type="Label" parent="Panel/HBox/StatsPanel/AtkRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+text = "15"
+horizontal_alignment = 2
+
+[node name="DefRow" type="HBoxContainer" parent="Panel/HBox/StatsPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/StatsPanel/DefRow"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Total Defense"
+
+[node name="DefValue" type="Label" parent="Panel/HBox/StatsPanel/DefRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.7, 1, 1)
+text = "10"
+horizontal_alignment = 2
+
+[node name="EquipmentPanel" type="VBoxContainer" parent="Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Panel/HBox/EquipmentPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "EQUIPMENT"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="Panel/HBox/EquipmentPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+
+[node name="VBoxHead" type="VBoxContainer" parent="Panel/HBox/EquipmentPanel/Grid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/EquipmentPanel/Grid/VBoxHead"]
+layout_mode = 2
+text = "HEAD"
+horizontal_alignment = 1
+
+[node name="HeadSlot" parent="Panel/HBox/EquipmentPanel/Grid/VBoxHead" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxArmor" type="VBoxContainer" parent="Panel/HBox/EquipmentPanel/Grid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/EquipmentPanel/Grid/VBoxArmor"]
+layout_mode = 2
+text = "CHEST"
+horizontal_alignment = 1
+
+[node name="ArmorSlot" parent="Panel/HBox/EquipmentPanel/Grid/VBoxArmor" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxWeapon" type="VBoxContainer" parent="Panel/HBox/EquipmentPanel/Grid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/EquipmentPanel/Grid/VBoxWeapon"]
+layout_mode = 2
+text = "MAIN HAND"
+horizontal_alignment = 1
+
+[node name="WeaponSlot" parent="Panel/HBox/EquipmentPanel/Grid/VBoxWeapon" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxShield" type="VBoxContainer" parent="Panel/HBox/EquipmentPanel/Grid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBox/EquipmentPanel/Grid/VBoxShield"]
+layout_mode = 2
+text = "OFF HAND"
+horizontal_alignment = 1
+
+[node name="ShieldSlot" parent="Panel/HBox/EquipmentPanel/Grid/VBoxShield" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[connection signal="pressed" from="Panel/HBox/StatsPanel/StrRow/AddStr" to="." method="_on_add_str_pressed"]
+[connection signal="pressed" from="Panel/HBox/StatsPanel/IntRow/AddInt" to="." method="_on_add_int_pressed"]
+[connection signal="pressed" from="Panel/HBox/StatsPanel/DexRow/AddDex" to="." method="_on_add_dex_pressed"]
+[connection signal="pressed" from="Panel/HBox/StatsPanel/ConRow/AddCon" to="." method="_on_add_con_pressed"]

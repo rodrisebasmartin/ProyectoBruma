@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/entities/player/Player.gd" id="1_vsc38"]
+[ext_resource type="Script" path="res://src/core/IsometricCamera.gd" id="2_6o7j1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k1t6u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqrsc"]
+
+[node name="Test" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = transform(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(20, 0.1, 20)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_vsc38")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_k1t6u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_yqrsc")
+
+[node name="Hitbox" type="Area3D" parent="Player"]
+unique_name_in_owner = true
+
+[node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_6o7j1")
+target = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = transform(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+projection = 1
+size = 10.0

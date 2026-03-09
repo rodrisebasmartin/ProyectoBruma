@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" uid="uid://player_scene" path="res://src/entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://src/core/IsometricCamera.gd" id="2_camera"]
+[ext_resource type="PackedScene" path="res://src/ui/PlayerHUD.tscn" id="3_hud"]
+
+[node name="DebugSpawn" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+use_collision = true
+collision_layer = 2
+size = Vector3(20, 0.1, 20)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_camera")
+target = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+projection = 1
+size = 10.0
+
+[node name="PlayerHUD" parent="." instance=ExtResource("3_hud")]

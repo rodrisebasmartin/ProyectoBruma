@@ -1,0 +1,12 @@
+# Godot-specific ignores
+.godot/
+*.translation
+*.tscn.tmp
+*.res.tmp
+*.import/
+# Editor-specific ignores
+.vscode/
+.idea/
+# OS-specific ignores
+.DS_Store
+Thumbs.db

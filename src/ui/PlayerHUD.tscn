@@ -1,0 +1,374 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://src/ui/PlayerHUD.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://src/ui/CharacterWindow.tscn" id="2_char"]
+[ext_resource type="PackedScene" path="res://src/ui/InteractionUI.tscn" id="3_interact"]
+[ext_resource type="PackedScene" path="res://src/ui/Minimap.tscn" id="4_minimap"]
+[ext_resource type="PackedScene" path="res://src/ui/InventoryWindow.tscn" id="5_inventory"]
+[ext_resource type="PackedScene" path="res://src/ui/QuestLogUI.tscn" id="6_questlog"]
+[ext_resource type="PackedScene" path="res://src/ui/BankWindow.tscn" id="7_bank"]
+[ext_resource type="PackedScene" path="res://src/ui/DialogueUI.tscn" id="8_dialogue"]
+[ext_resource type="PackedScene" path="res://src/ui/ShopWindow.tscn" id="9_shop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Health"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Mana"]
+bg_color = Color(0.1, 0.4, 0.8, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Stamina"]
+bg_color = Color(0.1, 0.7, 0.2, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Cast"]
+bg_color = Color(1, 0.8, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Control/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "LVL: 1"
+
+[node name="ExpLabel" type="Label" parent="Control/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "EXP: 0 / 100"
+
+[node name="GoldLabel" type="Label" parent="Control/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "GOLD: 0"
+
+[node name="StatsContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -140.0
+offset_right = 320.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="HealthBar" type="ProgressBar" parent="Control/StatsContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_Health")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Control/StatsContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HEALTH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ManaBar" type="ProgressBar" parent="Control/StatsContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_Mana")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Control/StatsContainer/ManaBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MANA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="Control/StatsContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_Stamina")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Control/StatsContainer/StaminaBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "STAMINA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DodgeIcon" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 330.0
+offset_top = -70.0
+offset_right = 380.0
+offset_bottom = -20.0
+grow_vertical = 0
+color = Color(0.2, 0.2, 0.2, 0.8)
+
+[node name="IconLabel" type="Label" parent="Control/DodgeIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "DODGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownOverlay" type="ColorRect" parent="Control/DodgeIcon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.4)
+
+[node name="SpellBar" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Slot1" type="ColorRect" parent="Control/SpellBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.1, 0.4, 0.8, 0.8)
+
+[node name="Label" type="Label" parent="Control/SpellBar/Slot1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot2" type="ColorRect" parent="Control/SpellBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Label" type="Label" parent="Control/SpellBar/Slot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot3" type="ColorRect" parent="Control/SpellBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Label" type="Label" parent="Control/SpellBar/Slot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot4" type="ColorRect" parent="Control/SpellBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Label" type="Label" parent="Control/SpellBar/Slot4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot5" type="ColorRect" parent="Control/SpellBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Label" type="Label" parent="Control/SpellBar/Slot5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CastBar" type="ProgressBar" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_Cast")
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Control/CastBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "CASTING..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterWindow" parent="Control" instance=ExtResource("2_char")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="InventoryWindow" parent="Control" instance=ExtResource("5_inventory")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 220.0
+offset_top = -250.0
+offset_right = 620.0
+offset_bottom = 150.0
+
+[node name="InteractionUI" parent="Control" instance=ExtResource("3_interact")]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Minimap" parent="Control" instance=ExtResource("4_minimap")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 220.0
+grow_horizontal = 0
+
+[node name="QuestLogUI" parent="Control" instance=ExtResource("6_questlog")]
+layout_mode = 1
+
+[node name="BankWindow" parent="Control" instance=ExtResource("7_bank")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="DialogueUI" parent="Control" instance=ExtResource("8_dialogue")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="ShopWindow" parent="Control" instance=ExtResource("9_shop")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0

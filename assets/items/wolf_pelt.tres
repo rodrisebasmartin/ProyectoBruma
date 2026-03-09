@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/core/ItemData.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = "misc_wolf_pelt"
+name = "Wolf Pelt"
+description = "A coarse, grey fur pelt. Worth some gold to a merchant."
+item_type = 4
+rarity = 0
+weight = 1.0
+value = 15
+stackable = true
+max_stack = 20
+health_restore = 0
+mana_restore = 0
+damage_bonus = 0
+defense_bonus = 0

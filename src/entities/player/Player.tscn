@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://src/entities/player/Player.gd" id="1_player"]
+[ext_resource type="PackedScene" path="res://assets/models/characters/player/test/testmodel.fbx" id="2_model"]
+[ext_resource type="Script" path="res://src/core/components/HealthComponent.gd" id="3_health"]
+[ext_resource type="Script" path="res://src/core/components/StatsComponent.gd" id="4_stats"]
+[ext_resource type="Script" path="res://src/core/components/CharacterAnimator.gd" id="5_animator"]
+[ext_resource type="Script" path="res://src/core/components/InventoryComponent.gd" id="6_inventory"]
+[ext_resource type="Script" path="res://src/core/components/EquipmentComponent.gd" id="7_equipment"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Big"]
+size = Vector3(2, 2, 2)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_player")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="Hitbox" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_Big")
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 4
+enabled = false
+
+[node name="DebugMesh" type="MeshInstance3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
+
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("3_health")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("4_stats")
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("6_inventory")
+
+[node name="EquipmentComponent" type="Node" parent="."]
+script = ExtResource("7_equipment")
+
+[node name="CharacterAnimator" type="Node" parent="." node_paths=PackedStringArray("animation_player", "model_root")]
+script = ExtResource("5_animator")
+animation_player = NodePath("../Model/AnimationPlayer")
+model_root = NodePath("../Model")
+animation_sources = {
+"Dodge": "res://assets/animations/characters/combat/dodge/StandingDodge.fbx",
+"Idle": "res://assets/animations/characters/idle/Idle.fbx",
+"Punch1": "res://assets/animations/characters/combat/punch/Punching1.fbx",
+"Punch2": "res://assets/animations/characters/combat/punch/Punching2.fbx",
+"Punch3": "res://assets/animations/characters/combat/punch/Punching3.fbx",
+"Walk": "res://assets/animations/characters/walk/Standard Walk.fbx"
+}
+
+[node name="InteractRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Indicator"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0.8, 1, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Indicator"]
+material = SubResource("StandardMaterial3D_Indicator")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.01
+
+[node name="TargetIndicator" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_Indicator")
